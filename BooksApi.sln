@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksApi", "BooksApi\BooksApi.csproj", "{7E63DC56-09B0-472C-83D6-2BAFFEAB1959}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DC20898C-A6EC-4287-A387-949A1C5BBBBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{1ECD00F4-418F-4427-B662-23E5EEB4168F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core.data", "core.data\core.data.csproj", "{FA2BB43A-A33F-409C-8560-519D946C239E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E63DC56-09B0-472C-83D6-2BAFFEAB1959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E63DC56-09B0-472C-83D6-2BAFFEAB1959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E63DC56-09B0-472C-83D6-2BAFFEAB1959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E63DC56-09B0-472C-83D6-2BAFFEAB1959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA2BB43A-A33F-409C-8560-519D946C239E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2BB43A-A33F-409C-8560-519D946C239E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2BB43A-A33F-409C-8560-519D946C239E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2BB43A-A33F-409C-8560-519D946C239E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7E63DC56-09B0-472C-83D6-2BAFFEAB1959} = {1ECD00F4-418F-4427-B662-23E5EEB4168F}
+		{FA2BB43A-A33F-409C-8560-519D946C239E} = {DC20898C-A6EC-4287-A387-949A1C5BBBBA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {225C0BDC-44EE-45C6-A9E2-8EAF0E225585}
+	EndGlobalSection
+EndGlobal
