@@ -25,6 +25,9 @@ namespace core.data.Repositories
         public void Add(T entity)
             => _context.Add(entity);
 
+        public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
+         => await _context.AddAsync(entity, cancellationToken);
+
         public void Remove(T entity)
          => _context.Remove(entity);
 

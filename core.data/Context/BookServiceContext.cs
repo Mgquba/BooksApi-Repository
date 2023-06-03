@@ -14,41 +14,68 @@ namespace core.data.Context
     public interface IBookServiceContext
     {
         DbSet<Book> Books { get; set; }
+        DbSet<Publisher> Publishers { get; set; }
+        DbSet<Author> Authors { get; set; }
+        DbSet<Book_Author> Books_Authors { get; set; }
     }
 
     public class BookServiceContext : DbContext, IBookServiceContext, IUnitOfWork
     {
         public BookServiceContext(DbContextOptions<BookServiceContext> options) : base(options) { }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book_Author> Books_Authors { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-           
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(BookServiceContext).Assembly);
+
+            modelBuilder.Entity<Book_Author>()
+                .HasOne(b => b.Book)
+                .WithMany(ba => ba.Book_Author)
+                .HasForeignKey(bi => bi.BookId);
+
+            modelBuilder.Entity<Book_Author>()
+             .HasOne(b => b.Author)
+             .WithMany(ba => ba.Book_Author)
+             .HasForeignKey(bi => bi.AuthorId);
+
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken)
         {
+            foreach (var entry in ChangeTracker.Entries<Book>())
+            {
+
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.DateAdded = DateTime.UtcNow;
+                }
+            }
+
             await base.SaveChangesAsync(cancellationToken);
             return true;
         }
 
         public class BookServiceContextDesignFactory : IDesignTimeDbContextFactory<BookServiceContext>
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                   .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile("appsettings.json", false)
-                   .Build();
-
             public BookServiceContext CreateDbContext(string[] args)
             {
-                var optionsBuilder = new DbContextOptionsBuilder<BookServiceContext>()
-                     .EnableSensitiveDataLogging()
-                     .UseNpgsql(configuration.GetConnectionString("BooksConnectionString"));
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
 
-                return new BookServiceContext(optionsBuilder.Options);
+                var builder = new DbContextOptionsBuilder<BookServiceContext>();
+                var connectionString = configuration.GetConnectionString
+                    ("BooksConnectionString");
+                builder.UseNpgsql(connectionString);
+
+                return new BookServiceContext(builder.Options);
             }
+         
         }
     }
 

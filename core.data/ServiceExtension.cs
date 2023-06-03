@@ -2,6 +2,7 @@
 using core.data.Repositories;
 using core.data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,18 +12,20 @@ using System.Threading.Tasks;
 
 namespace core.data
 {
-    public static class ServiceExtensionData
+    public static class ServiceExtension
     {
-        public static void AddDataAccessLayer(this IServiceCollection services, string connectString)
+        public static IServiceCollection AddDataAccessLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<BookServiceContext>(options =>
+           options.UseNpgsql(configuration.GetConnectionString("BooksConnectionString"
+           )
+
+           ));
+
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-            //configure PostgreSQL
-            services.AddDbContext<BookServiceContext>(x =>
-            {
-                x.UseNpgsql(connectString,
-                    y => y.MigrationsAssembly(typeof(BookServiceContext).Assembly.FullName));
-            });
+          return services;
         }
     }
 }
