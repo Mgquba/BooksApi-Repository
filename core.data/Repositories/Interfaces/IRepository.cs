@@ -10,6 +10,7 @@ namespace core.data.Repositories.Interfaces
     {
         IUnitOfWork UnitOfWork { get; }
         void Add(T entity);
+        Task AddAsync(T entity, CancellationToken cancellationToken = default);
         void Update(T entity);
         void Remove(T entity);
 
